@@ -3,12 +3,29 @@ from PyQt5.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
                              QFileDialog, QTextEdit, QFrame, QLineEdit)
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont, QIcon
+from .dialogs.category_settings import CategorySettingsDialog
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("NPS Data Classifier")
         self.setMinimumSize(1200, 800)
+        
+        # 카테고리 데이터 초기화
+        self.categories = [
+            ("UI & Visual Design", [
+                "레이아웃 구조 관련",
+                "디자인 품질/일관성 관련",
+                "가독성 관련",
+                "이미지/미디어 품질 관련"
+            ]),
+            ("Content & Information", [
+                "제품 정보 관련",
+                "콘텐츠 관련",
+                "번역/용어 관련",
+                "정보 과다/과부족"
+            ])
+        ]
         
         # 메인 위젯 설정
         main_widget = QWidget()
@@ -28,8 +45,8 @@ class MainWindow(QMainWindow):
         content_layout.setSpacing(20)
         
         # 왼쪽 섹션 (카테고리 트리)
-        left_section = self._create_left_section()
-        content_layout.addWidget(left_section, 1)
+        self.left_section = self._create_left_section()
+        content_layout.addWidget(self.left_section, 1)
         
         # 오른쪽 섹션 (파일 선택 및 로그)
         right_section = self._create_right_section()
@@ -37,6 +54,9 @@ class MainWindow(QMainWindow):
         
         main_layout.addWidget(content_widget)
         
+        # 카테고리 데이터 로드
+        self._load_categories()
+    
     def _create_header(self):
         header = QWidget()
         header.setObjectName("headerWidget")
@@ -96,11 +116,11 @@ class MainWindow(QMainWindow):
         
         title = QLabel("분류 카테고리")
         title.setObjectName("sectionTitle")
-        count = QLabel("(총 0개)")
-        count.setStyleSheet("color: #666;")
+        self.category_count = QLabel("(총 0개)")
+        self.category_count.setStyleSheet("color: #666;")
         
         header_layout.addWidget(title)
-        header_layout.addWidget(count)
+        header_layout.addWidget(self.category_count)
         header_layout.addStretch()
         
         # 카테고리 검색
@@ -109,36 +129,15 @@ class MainWindow(QMainWindow):
         search_box.setObjectName("searchBox")
         
         # 카테고리 트리
-        tree = QTreeWidget()
-        tree.setHeaderLabels(["카테고리", "갯수"])
-        tree.setColumnWidth(0, 250)
-        tree.setAlternatingRowColors(True)
-        tree.setObjectName("categoryTree")
-        
-        # 샘플 카테고리 데이터
-        categories = [
-            ("UI & Visual Design", [
-                "레이아웃 구조 관련",
-                "디자인 품질/일관성 관련",
-                "가독성 관련",
-                "이미지/미디어 품질 관련"
-            ]),
-            ("Content & Information", [
-                "제품 정보 관련",
-                "콘텐츠 관련",
-                "번역/용어 관련",
-                "정보 과다/과부족"
-            ])
-        ]
-        
-        for category, subcategories in categories:
-            item = QTreeWidgetItem(tree, [category, "0"])
-            for sub in subcategories:
-                QTreeWidgetItem(item, [sub, "0"])
+        self.category_tree = QTreeWidget()
+        self.category_tree.setHeaderLabels(["카테고리", "갯수"])
+        self.category_tree.setColumnWidth(0, 250)
+        self.category_tree.setAlternatingRowColors(True)
+        self.category_tree.setObjectName("categoryTree")
         
         layout.addWidget(header)
         layout.addWidget(search_box)
-        layout.addWidget(tree)
+        layout.addWidget(self.category_tree)
         return section
     
     def _create_right_section(self):
@@ -216,5 +215,31 @@ class MainWindow(QMainWindow):
             pass
     
     def _show_popup(self, button_text):
-        # 팝업 표시 로직은 나중에 구현
-        pass 
+        if button_text == "카테고리 설정":
+            dialog = CategorySettingsDialog(self, self.categories)
+            dialog.categoriesChanged.connect(self._update_categories)
+            dialog.exec_()
+    
+    def _load_categories(self):
+        """카테고리 데이터를 트리에 로드"""
+        self.category_tree.clear()
+        total_count = 0
+        
+        for category, subcategories in self.categories:
+            item = QTreeWidgetItem(self.category_tree, [category, "0"])
+            category_count = 0
+            
+            for sub in subcategories:
+                sub_item = QTreeWidgetItem(item, [sub, "0"])
+                category_count += 0  # 실제 데이터에서는 해당 카테고리의 항목 수를 더함
+            
+            item.setText(1, str(category_count))
+            total_count += category_count
+        
+        self.category_count.setText(f"(총 {total_count}개)")
+        self.category_tree.expandAll()
+    
+    def _update_categories(self, categories):
+        """카테고리 설정이 변경되었을 때 호출"""
+        self.categories = categories
+        self._load_categories() 

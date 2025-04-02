@@ -169,6 +169,190 @@ def main():
             color: #1a1a1a;
             margin-bottom: 8px;
         }
+        
+        /* 카테고리 설정 다이얼로그 스타일 */
+        QDialog {
+            background-color: #f5f6f7;
+        }
+        
+        #settingsHeader {
+            background-color: white;
+            border-bottom: 1px solid #e9ecef;
+            padding: 16px;
+        }
+        
+        #categorySection {
+            background-color: white;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 16px;
+        }
+        
+        #settingsCategoryTree {
+            border: none;
+            background-color: transparent;
+            outline: none;
+        }
+        
+        #settingsCategoryTree::item {
+            padding: 4px;
+            margin: 2px 0;
+            border-radius: 4px;
+            min-height: 32px;
+        }
+        
+        #settingsCategoryTree::item:hover {
+            background-color: #f8f9fa;
+        }
+        
+        #settingsCategoryTree::item:selected {
+            background-color: #e7f1ff;
+        }
+        
+        #settingsCategoryTree QLineEdit {
+            padding: 4px 8px;
+            margin: 0;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background-color: transparent;
+            min-height: 24px;
+            font-size: 13px;
+        }
+        
+        #settingsCategoryTree QLineEdit:hover {
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+        }
+        
+        #settingsCategoryTree QLineEdit:focus {
+            background-color: white;
+            border-color: #0d6efd;
+        }
+        
+        #settingsCategoryTree QWidget {
+            min-height: 32px;
+        }
+        
+        #addButton {
+            padding: 6px 12px;
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        #addButton:hover {
+            background-color: #0b5ed7;
+        }
+        
+        #deleteButton {
+            background-color: transparent;
+            color: #dc3545;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 4px 8px;
+        }
+        
+        #deleteButton:hover {
+            background-color: #dc3545;
+            color: white;
+            border-radius: 4px;
+        }
+        
+        #primaryButton {
+            padding: 6px 16px;
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            min-width: 100px;
+        }
+        
+        #primaryButton:hover {
+            background-color: #0b5ed7;
+        }
+        
+        QLineEdit {
+            padding: 6px 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            background-color: white;
+        }
+        
+        QLineEdit:focus {
+            border-color: #0d6efd;
+            outline: none;
+        }
+        
+        QSpinBox {
+            padding: 6px 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            background-color: white;
+        }
+        
+        QSpinBox:focus {
+            border-color: #0d6efd;
+            outline: none;
+        }
+        
+        QCheckBox {
+            spacing: 8px;
+        }
+        
+        QCheckBox::indicator {
+            width: 18px;
+            height: 18px;
+            border: 1px solid #dee2e6;
+            border-radius: 3px;
+            background-color: white;
+        }
+        
+        QCheckBox::indicator:checked {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+            image: url(check.png);
+        }
+        
+        QCheckBox::indicator:hover {
+            border-color: #0d6efd;
+        }
+        
+        /* 인라인 버튼 스타일 */
+        #inlineAddButton, #inlineDeleteButton {
+            background-color: transparent;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 0px;
+            min-width: 28px;
+            max-width: 28px;
+            min-height: 28px;
+            max-height: 28px;
+            margin: 2px;
+        }
+        
+        #inlineAddButton {
+            color: #0d6efd;
+        }
+        
+        #inlineAddButton:hover {
+            background-color: #e7f1ff;
+            border-color: #0d6efd;
+        }
+        
+        #inlineDeleteButton {
+            color: #dc3545;
+        }
+        
+        #inlineDeleteButton:hover {
+            background-color: #ffebee;
+            border-color: #dc3545;
+        }
     """)
     
     window = MainWindow()
