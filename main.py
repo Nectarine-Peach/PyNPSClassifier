@@ -198,7 +198,7 @@ def main():
             padding: 4px;
             margin: 2px 0;
             border-radius: 4px;
-            min-height: 32px;
+            min-height: 50px;
         }
         
         #settingsCategoryTree::item:hover {
@@ -273,6 +273,21 @@ def main():
         
         #primaryButton:hover {
             background-color: #0b5ed7;
+        }
+        
+        #secondaryButton {
+            padding: 6px 16px;
+            background-color: #f8f9fa;
+            color: #212529;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            font-weight: 500;
+            min-width: 100px;
+        }
+        
+        #secondaryButton:hover {
+            background-color: #e9ecef;
+            border-color: #dee2e6;
         }
         
         QLineEdit {

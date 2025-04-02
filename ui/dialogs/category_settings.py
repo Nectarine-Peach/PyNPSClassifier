@@ -85,10 +85,11 @@ class CategorySettingsDialog(QDialog):
         
         layout.addStretch()
         
-        cancel_btn = QPushButton("Cancel")
+        cancel_btn = QPushButton("취소")
+        cancel_btn.setObjectName("secondaryButton")
         cancel_btn.clicked.connect(self.reject)
         
-        save_btn = QPushButton("Save Changes")
+        save_btn = QPushButton("저장")
         save_btn.setObjectName("primaryButton")
         save_btn.clicked.connect(self._save_changes)
         

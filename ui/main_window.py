@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont, QIcon
 from .dialogs.category_settings import CategorySettingsDialog
+from .dialogs.prompt_settings import PromptSettingsDialog
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -26,6 +27,15 @@ class MainWindow(QMainWindow):
                 "정보 과다/과부족"
             ])
         ]
+        
+        # 기본 프롬프트 설정
+        self.current_prompt = """다음 사용자 피드백 내용을 분석하여 가장 적합한 카테고리로 분류해주세요:
+피드백: {feedback}
+
+카테고리:
+{category}
+
+결과는 카테고리 이름만 반환하세요."""
         
         # 메인 위젯 설정
         main_widget = QWidget()
@@ -89,7 +99,7 @@ class MainWindow(QMainWindow):
         buttons = [
             ("설정 저장", "save"),
             ("설정 내보내기", "export"),
-            ("AI 설정", "ai"),
+            ("프롬프트 설정", "ai"),
             ("카테고리 설정", "category")
         ]
         
@@ -219,6 +229,10 @@ class MainWindow(QMainWindow):
             dialog = CategorySettingsDialog(self, self.categories)
             dialog.categoriesChanged.connect(self._update_categories)
             dialog.exec_()
+        elif button_text == "프롬프트 설정":
+            dialog = PromptSettingsDialog(self, self.current_prompt)
+            dialog.promptChanged.connect(self._update_prompt)
+            dialog.exec_()
     
     def _load_categories(self):
         """카테고리 데이터를 트리에 로드"""
@@ -242,4 +256,8 @@ class MainWindow(QMainWindow):
     def _update_categories(self, categories):
         """카테고리 설정이 변경되었을 때 호출"""
         self.categories = categories
-        self._load_categories() 
+        self._load_categories()
+    
+    def _update_prompt(self, prompt):
+        """프롬프트 설정이 변경되었을 때 호출"""
+        self.current_prompt = prompt 
