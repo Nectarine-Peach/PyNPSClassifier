@@ -43,6 +43,21 @@ def main():
             border-color: #dee2e6;
         }
         
+        /* 모델 선택 버튼 스타일 */
+        #modelButton {
+            padding: 6px 14px;
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            min-width: 100px;
+        }
+        
+        #modelButton:hover {
+            background-color: #0b5ed7;
+        }
+        
         /* 왼쪽 섹션 스타일 */
         #leftSection {
             background-color: white;
@@ -66,11 +81,13 @@ def main():
         #categoryTree {
             border: none;
             background-color: transparent;
+            margin-top: 10px;
         }
         
         #categoryTree::item {
-            padding: 6px 4px;
+            padding: 8px 6px;
             border-radius: 4px;
+            min-height: 30px;
         }
         
         #categoryTree::item:selected {
@@ -178,14 +195,15 @@ def main():
         #settingsHeader {
             background-color: white;
             border-bottom: 1px solid #e9ecef;
-            padding: 16px;
+            padding: 16px 20px;
         }
         
         #categorySection {
             background-color: white;
             border: 1px solid #e9ecef;
             border-radius: 6px;
-            padding: 16px;
+            padding: 20px;
+            margin-top: 10px;
         }
         
         #settingsCategoryTree {
@@ -195,10 +213,10 @@ def main():
         }
         
         #settingsCategoryTree::item {
-            padding: 4px;
+            padding: 8px 6px;
             margin: 2px 0;
             border-radius: 4px;
-            min-height: 50px;
+            min-height: 30px;
         }
         
         #settingsCategoryTree::item:hover {
@@ -240,6 +258,7 @@ def main():
             border: none;
             border-radius: 4px;
             font-weight: 500;
+            min-width: 100px;
         }
         
         #addButton:hover {
@@ -249,16 +268,16 @@ def main():
         #deleteButton {
             background-color: transparent;
             color: #dc3545;
-            border: none;
-            font-size: 16px;
-            font-weight: bold;
-            padding: 4px 8px;
+            border: 1px solid #dc3545;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 4px 10px;
         }
         
         #deleteButton:hover {
             background-color: #dc3545;
             color: white;
-            border-radius: 4px;
         }
         
         #primaryButton {
@@ -341,13 +360,13 @@ def main():
             background-color: transparent;
             border: 1px solid transparent;
             border-radius: 4px;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: bold;
-            padding: 0px;
-            min-width: 28px;
-            max-width: 28px;
-            min-height: 28px;
-            max-height: 28px;
+            padding: 2px;
+            min-width: 30px;
+            max-width: 30px;
+            min-height: 30px;
+            max-height: 30px;
             margin: 2px;
         }
         

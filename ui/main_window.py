@@ -80,14 +80,11 @@ class MainWindow(QMainWindow):
         title.setObjectName("headerTitle")
         left_header.addWidget(title)
         
-        model_label = QLabel("LLM Model:")
-        model_label.setStyleSheet("color: #666;")
-        left_header.addWidget(model_label)
-        
-        model_combo = QComboBox()
-        model_combo.addItems(["gemma:4b", "GPT-4", "GPT-3.5", "Claude"])
-        model_combo.setMinimumWidth(150)
-        left_header.addWidget(model_combo)
+        # 모델 선택 버튼으로 변경
+        model_btn = QPushButton("모델 선택")
+        model_btn.setObjectName("modelButton")
+        model_btn.clicked.connect(self._select_model)
+        left_header.addWidget(model_btn)
         
         left_header.addStretch()
         layout.addLayout(left_header, stretch=2)
@@ -133,11 +130,6 @@ class MainWindow(QMainWindow):
         header_layout.addWidget(self.category_count)
         header_layout.addStretch()
         
-        # 카테고리 검색
-        search_box = QLineEdit()
-        search_box.setPlaceholderText("카테고리 검색...")
-        search_box.setObjectName("searchBox")
-        
         # 카테고리 트리
         self.category_tree = QTreeWidget()
         self.category_tree.setHeaderLabels(["카테고리", "갯수"])
@@ -146,7 +138,6 @@ class MainWindow(QMainWindow):
         self.category_tree.setObjectName("categoryTree")
         
         layout.addWidget(header)
-        layout.addWidget(search_box)
         layout.addWidget(self.category_tree)
         return section
     
@@ -261,3 +252,16 @@ class MainWindow(QMainWindow):
     def _update_prompt(self, prompt):
         """프롬프트 설정이 변경되었을 때 호출"""
         self.current_prompt = prompt 
+    
+    def _select_model(self):
+        """GGUF 모델 파일 선택"""
+        file_name, _ = QFileDialog.getOpenFileName(
+            self,
+            "모델 파일 선택",
+            "",
+            "GGUF Model Files (*.gguf)"
+        )
+        if file_name:
+            # 모델 파일 선택 후 처리 로직
+            model_name = file_name.split("/")[-1]
+            print(f"선택된 모델: {model_name}") 
